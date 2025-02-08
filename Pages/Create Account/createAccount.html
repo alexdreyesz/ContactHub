@@ -3,24 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Stylesheet" href="../Create Account/createAccount.css">
     <title>Sign up to ContactHub</title>
 </head>
 <body>
-    <!-- Login Box Component -->
-    <div class="login-container">
-        <div class="login-box">
-            <div class="login-items">
-            
-                <p>Username or Email Address</p>
-                <input type="text" class="input-text-box">
-            
-                <p>Password</p>
-                <input type="password" class="input-password-box">
+    
+    <!-- Left Box Container -->
+    <div class="left-container">
+        <div class="image-text-container">
+            <p class="image-heading">Create your free account</p>
+            <p class="image-text">Explore ContactHub's core features for individuals and organizations.</p>
+        </div>
+        <img src="../../Images/ContactBanner2.jpg" class="contact-banner" alt="Contact Banner">
+    </div>
+
+    <!-- Right Box Container -->
+    <div class="right-container">
+        <!-- Sign In Component -->
+        <div class="signin-container">
+            <p>Already have an account? &nbsp;<a href="../../index.html">Sign in →</a></p>
+        </div>
+
+        <!-- Contact Text Component -->
+        <div class="contact-container">
+        <p class="contact-text">Sign up to ContactHub</p>
+        </div>
+
+        <!-- Login Box Component -->
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-items">
+
+                    <p>First Name</p>
+                    <input type="text" class="input-text-box" placeholder="First Name">
+
+                    <p>Last Name</p>
+                    <input type="text" class="input-text-box" placeholder="Last Name">
                 
-                <button class="login-button" onclick="window.location.href = './pages/manager.html';">Sign In</button>
+                    <p>Email</p>
+                    <input type="text" class="input-text-box" placeholder="Email">
                 
+                    <p>Password</p>
+                    <input type="password" class="input-password-box" placeholder="Password">
+                    <p class="signup-info">Password should be at least 15 characters OR at least 8 characters including a number and a lowercase letter.</p>
+
+                    <div class="username-box"> 
+                        <p>Username</p>
+                        <input type="text" class="input-text-box" placeholder="Username">
+                        <p class="signup-info">Username may only contain alphanumeric characters or single hyphens, and cannot begin or end with a hyphen.</p>
+                    </div>
+
+                    <button class="login-button" onclick="window.location.href = '../../index.html';">Continue ></button>
+                    
+                </div>
             </div>
         </div>
     </div>
+    
 </body>
 </html>

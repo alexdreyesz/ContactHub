@@ -100,7 +100,7 @@ input:focus {
 }
 
 .login-button:hover {
-    background-color: #015FE6;
+    background-color: #1b6b2b;
     box-shadow: #0D1116;
     cursor: pointer;
 }
