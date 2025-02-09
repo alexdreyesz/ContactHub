@@ -72,7 +72,12 @@ p {
 }
 
 .signin-container a{
-    color:#E5EBF2;
+    color:#E5EBF2; 
+}
+
+.signin-container a:hover{
+    color:#437cbe; 
+    text-decoration: none;
 }
 
 /*Contact Text*/
