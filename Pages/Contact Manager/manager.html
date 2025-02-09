@@ -8,6 +8,8 @@
     <title>Manage Your Contact</title>
 </head>
 <body>
+
+    <p class="heading">Contact Manager</p>
     
     <!-- Left Box Container -->
     <div class="left-container">
@@ -41,15 +43,33 @@
         <div class="login-container">
             <div class="login-box">
                 <div class="login-items">
+                    <p>Contact List</p>
 
-                    <p>Add Contact</p>
-
-                    <input type="text" class="input-text-box" placeholder="First Name">
-                    
+                    <input type="text" class="input-text-box" placeholder="Search">
                 </div>
+
+                <!-- Contact List Component -->
+                <div class="contact-list"> 
+                    <div class="list-info">
+                        <p class="list-name">Name</p>
+                        <p class="list-phone">Phone</p>
+                        <p class="list-email">Email</p>
+                        <p class="list-action">Actions</p>
+                    </div>
+
+                    <div class="added-person">
+                        <p>John Doe</p>
+                        <p>123-456-7890</p>
+                        <p>john@doe.com</p>
+                        <button class="delete-button">Delete</button> 
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
+
+    <button class="logout-button">Log Out</button>
     
 </body>
 </html>

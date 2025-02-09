@@ -19,6 +19,36 @@ input:focus {
     outline-color: #0969DA;
 }
 
+.heading {
+    position: absolute;
+    top: 5px;
+    left: 460px;
+    color: #E5EBF2;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-weight: 400;
+    font-size: 38px;
+}
+
+.logout-button {
+    position: absolute;
+    top: 500px;
+    left: 420px;
+
+    width: 30%;
+    margin-top: 0px;
+    margin-left: -4px;
+    padding: 9px;
+    border: none;
+    border-radius: 4px;
+    background-color: #DC3544;
+    transition-duration: 0.4s;
+
+    color: #E5EBF2;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+}
+
 .left-container {
     width: 40%;
     height: 100vh;
@@ -143,8 +173,6 @@ input:focus {
     width: 95%;
     height: 325px;
     text-align: center;
-    align-content: center;
-
     background: #161C23;
     border: 1px solid #323f4d;
     border-radius: 4px;
@@ -167,19 +195,103 @@ input:focus {
 }
 
 .login-items input{
-    width: 86%;
+    width: 93%;
     display: flex;
-    padding: 8px;
-    margin-left: 10px;
+    padding: 10px;
+    margin-left: 16px;
     margin-top: 0px;
     margin-bottom: 10px;
     border: 1px solid #323f4d;
     border-radius: 5px;
 }
 
+.contact-list {
+    width: 100%;
+    position: relative;
+    top: 13px;    
+}
 
+.list-info {
+    width: 96%;
+    height: 40px;
+    position: relative;
+    left: 15px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    gap: 30px;
+    background-color: #017BFF;
+    border: 1px solid #323f4d;
+    border-radius: 2px;
+}
 
+.list-info p {
+    padding-bottom: 20px;
+    color: #E5EBF2;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-size: 12px;
+}
 
+.list-name {
+    position: relative;
+    left: -20px;
+}
 
+.list-phone {
+    position: relative;
+    left: -40px;
+}
 
+.list-email {
+    position: relative;
+    left: -40px;
+}
+
+.list-action {
+    position: relative;
+    left: -40px;
+}
+
+.added-person {
+    width: 96%;
+    height: 50px;
+    position: relative;
+    left: 16px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    gap: 30px;
+    border-bottom: 1px solid #323f4d;
+}
+
+.added-person p {
+    padding-bottom: 20px;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-size: 12px;
+}
+
+.delete-button {
+    width: 15%;
+    margin-top: 0px;
+    margin-left: -4px;
+    padding: 9px;
+    border: none;
+    border-radius: 4px;
+    background-color: #DC3544;
+    transition-duration: 0.4s;
+
+    color: #E5EBF2;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.delete-button:hover {
+    background-color: #ae2b36;
+    box-shadow: #0D1116;
+    cursor: pointer;
+}
 
