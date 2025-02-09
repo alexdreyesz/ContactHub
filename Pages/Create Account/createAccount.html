@@ -8,22 +8,17 @@
     <title>Sign up to ContactHub</title>
 </head>
 <body>
-    
     <!-- Left Box Container -->
     <div class="left-container">
         <div class="image-text-container">
             <p class="image-heading">Create your free account</p>
             <p class="image-text">Explore ContactHub's core features for individuals and organizations.</p>
         </div>
-        <img src="../../Images/ContactBanner.jpg" class="contact-banner" alt="Contact Banner">
+        <img src="../../Images/Banner.png" class="contact-banner" alt="Contact Banner">
     </div>
 
     <!-- Right Box Container -->
     <div class="right-container">
-        <!-- Sign In Component -->
-        <div class="signin-container">
-            <p>Already have an account? &nbsp;<a href="../../index.html" onclick="return true;">Sign in →</a></p>
-        </div>
 
         <!-- Contact Text Component -->
         <div class="contact-container">
@@ -34,6 +29,10 @@
         <div class="login-container">
             <div class="login-box">
                 <div class="login-items">
+                    <!-- Sign In Component -->
+                    <div class="signin-container">
+                        <p>Already have an account? &nbsp;<a href="../../index.html">Sign in →</a></p>
+                    </div>
 
                     <p>First Name</p>
                     <input type="text" class="input-text-box" placeholder="First Name">
@@ -45,7 +44,8 @@
                     <input type="text" class="input-text-box" placeholder="Email">
                 
                     <p>Password</p>
-                    <input type="password" class="input-password-box" placeholder="Password">
+                    <input type="password" id="password" class="input-password-box" placeholder="Password">
+                    <img src="../../Images/Password/show.png" class="eye-icon" id="eyeIcon" onclick="togglePassword()" alt="Show Password">
                     <p class="signup-info">Password should be at least 15 characters OR at least 8 characters including a number and a lowercase letter.</p>
 
                     <div class="username-box"> 
@@ -54,12 +54,15 @@
                         <p class="signup-info">Username may only contain alphanumeric characters or single hyphens, and cannot begin or end with a hyphen.</p>
                     </div>
 
-                    <button class="login-button" onclick="window.location.href = '../../index.html';">Continue ></button>
+                    <button class="login-button" onclick="window.location.href = '../../index.html';">Continue</button>
                     
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Script To JS -->
+    <script src="../../JS/funtion.js"></script>
     
 </body>
 </html>

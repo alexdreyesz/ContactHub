@@ -31,10 +31,10 @@ input:focus {
 
 .logout-button {
     position: absolute;
-    top: 500px;
-    left: 420px;
+    top: 105px;
+    left: 470px;
 
-    width: 30%;
+    width: 22%;
     margin-top: 0px;
     margin-left: -4px;
     padding: 9px;
@@ -75,6 +75,8 @@ input:focus {
 .add-container {
     width: 100%;
     text-align: center;
+    position: relative;
+    top: 40px;
 }
 
 .add-component {
@@ -160,7 +162,7 @@ input:focus {
 .login-container {
     width: 100%;
     position: relative;
-    top: -10px;
+    top: 30px;
     margin-left: -10px;
     display: flex;
     justify-content: center; 

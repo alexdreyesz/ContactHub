@@ -63,6 +63,10 @@ p {
 
 /*Right Sign In Link*/
 .signin-container {
+    position: absolute;
+    top: -85px;
+    left: 300px;
+    width: 100%;
     text-align: right;
 }
 
@@ -77,7 +81,6 @@ p {
 
 .signin-container a:hover{
     color:#437cbe; 
-    text-decoration: none;
 }
 
 /*Contact Text*/
@@ -88,7 +91,7 @@ p {
 
 .contact-text {
     position: relative;
-    top: 10px;
+    top: 30px;
     margin-left: -215px;
     color: #E5EBF2;
     font-size: 16px;
@@ -101,7 +104,7 @@ p {
 .login-container {
     width: 100%;
     position: relative;
-    top: -10px;
+    top: 10px;
     margin-left: -10px;
     display: flex;
     justify-content: center; 
@@ -136,6 +139,15 @@ p {
     margin-bottom: 10px;
     border: 1px solid #323f4d;
     border-radius: 5px;
+}
+
+.eye-icon {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 242px;
+    right: 35px;
+    cursor: pointer;
 }
 
 input:focus {
