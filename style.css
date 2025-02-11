@@ -152,9 +152,9 @@ input:focus {
 
 .eye-icon {
     width: 30px;
-    height: 30px;
+    height: 35px;
     position: absolute;
-    top: 82px;
+    top: 80px;
     right: 17px;
     cursor: pointer;
 }
