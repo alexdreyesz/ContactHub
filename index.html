@@ -19,16 +19,16 @@
     <!-- Login Box Component -->
     <div class="login-container">
         <div class="login-box">
-            <div class="login-items">
+            <div class="login-items" id="loginItems">
             
                 <p>Username or Email Address</p>
-                <input type="text" class="input-text-box">
+                <input type="text" class="input-text-box" id="loginCredential">
             
                 <p>Password</p>
-                <input type="password" id="password" class="input-password-box">
+                <input type="password" class="input-password-box" id="loginPassword">
                 <img src="./Images/Password/show.png" class="eye-icon" id="eyeIcon" onclick="togglePassword()" alt="Show Password">
                 
-                <button class="login-button" onclick="window.location.href = './Pages/Contact Manager/manager.html';">Sign In</button>
+                <button class="login-button" id="loginButton" onclick="window.location.href = './Pages/Contact Manager/manager.html';">Sign In</button>
                 
             </div>
         </div>
@@ -60,6 +60,7 @@
 
     <!-- Script To JS -->
     <script src="./JS/funtion.js"></script>
+    <script src="./JS/code.js"></script>
 
 </body>
 </html>

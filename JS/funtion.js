@@ -10,3 +10,33 @@ function togglePassword() {
         eyeIcon.src = "../../Images/Password/hide.png"; 
     }
 }
+
+function addContact() {
+    const showContact = document.querySelector(".contact-list"); // Fix the selector
+
+    let newAddedPerson = document.createElement('div');
+    let name = document.createElement('p');
+    let phone = document.createElement('p');
+    let email = document.createElement('p');
+    let button = document.createElement('button');
+
+    newAddedPerson.className = "added-person";
+
+    name.innerHTML = "John Doe";
+    phone.innerHTML = "123-456-7890";
+    email.innerHTML = "john@doe.com";
+
+    button.innerHTML = "Delete";
+    button.className = "delete-button";
+
+    button.addEventListener("click", function() {
+        showContact.removeChild(newAddedPerson);
+    });
+
+    newAddedPerson.appendChild(name);
+    newAddedPerson.appendChild(phone);
+    newAddedPerson.appendChild(email);
+    newAddedPerson.appendChild(button);
+
+    showContact.appendChild(newAddedPerson);    
+}
