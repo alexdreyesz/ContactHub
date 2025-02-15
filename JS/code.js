@@ -112,11 +112,11 @@ function readCookie() {
 	}
 }
 
-function addContact() {
+function addUser() {
 
 }
 
-function addContact() {
+function addContactSecond() {
     let newColor = document.getElementById("colorText").value;
 	document.getElementById("colorAddResult").innerHTML = "";
 
