@@ -39,4 +39,8 @@ function addContact() {
     newAddedPerson.appendChild(button);
 
     showContact.appendChild(newAddedPerson);    
+
+
+    const addButton = document.getElementById("addContactButton");
+    const originalColor = button.style.backgroundColor;
 }
