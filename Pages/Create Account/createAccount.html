@@ -35,26 +35,26 @@
                     </div>
 
                     <p>First Name</p>
-                    <input type="text" class="input-text-box" placeholder="First Name">
+                    <input type="text" class="input-text-box" id="nameText" placeholder="First Name">
 
                     <p>Last Name</p>
-                    <input type="text" class="input-text-box" placeholder="Last Name">
+                    <input type="text" class="input-text-box" id="lastText" placeholder="Last Name">
                 
                     <p>Email</p>
-                    <input type="text" class="input-text-box" placeholder="Email">
+                    <input type="text" class="input-text-box" id="emailText" placeholder="Email">
                 
                     <p>Password</p>
-                    <input type="password" id="password" class="input-password-box" placeholder="Password">
+                    <input type="password" class="input-password-box" id="loginPassword" placeholder="Password">
                     <img src="../../Images/Password/show.png" class="eye-icon" id="eyeIcon" onclick="togglePassword()" alt="Show Password">
                     <p class="signup-info">Password should be at least 15 characters OR at least 8 characters including a number and a lowercase letter.</p>
 
                     <div class="username-box"> 
                         <p>Username</p>
-                        <input type="text" class="input-text-box" placeholder="Username">
+                        <input type="text" class="input-text-box" id="usernameText" placeholder="Username">
                         <p class="signup-info">Username may only contain alphanumeric characters or single hyphens, and cannot begin or end with a hyphen.</p>
                     </div>
 
-                    <button class="login-button" onclick="window.location.href = '../../index.html';">Continue</button>
+                    <button class="login-button" id="createUserButton" onclick="createUser()">Continue</button>
                     
                 </div>
             </div>
