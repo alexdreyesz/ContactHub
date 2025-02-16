@@ -1,7 +1,9 @@
 <?php
 
 	$inData = getRequestInfo();
-	
+
+	error_log(json_encode($inData));
+
 	$id = 0;
 	$firstName = "";
 	$lastName = "";

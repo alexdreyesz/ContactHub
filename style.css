@@ -139,6 +139,10 @@ input:focus {
     font-weight: 500 !important;
 }
 
+.new-guest:hover {
+    cursor: pointer;
+}
+
 .new-login {
     position: relative;
     top: -1px;

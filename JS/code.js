@@ -25,8 +25,18 @@ function doLogin() {
 
     const button = document.getElementById("loginButton"); // Get Button To Change Its Color
 
-    let loginCredential = document.getElementById("loginCredential")
-    let loginPassword = document.getElementById("loginPassword")
+    let loginCredential = document.getElementById("loginCredential").value;
+    let loginPassword = document.getElementById("loginPassword").value;
+
+    if (loginCredential === "" || loginPassword === "") {
+		button.style.backgroundColor = '#ae2b36';
+
+        setTimeout(() => {
+            button.style.backgroundColor = "#238636"; 
+        }, 650); 
+
+		return;
+	}
 
     let tmp = { 
         Login: loginCredential, 
@@ -43,11 +53,13 @@ function doLogin() {
         xhr.onreadystatechange = function () {
             if(this.readyState == 4 && this.status == 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
-				userId = jsonObject.id;
+				userId = jsonObject.ID;
+
+                console.log(`User id is: ${userId}`);
 		
 				if(userId < 1) {	
-                    document.getElementById("loginCredential").innerHTML = "";
-                    document.getElementById("loginPassword").innerHTML = "";
+                    document.getElementById("loginCredential").value = "";
+                    document.getElementById("loginPassword").value = "";
                     
                     button.style.backgroundColor = '#ae2b36';
 
@@ -58,19 +70,23 @@ function doLogin() {
 					return;
 				}
 		
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
+				firstName = jsonObject.FirstName;
+				lastName = jsonObject.LastName;
+
+                console.log(`FirstName is: ${firstName}`);
+                console.log(`LastName is: ${lastName}`);
 
 				saveCookie();
-	
+
                 window.location.href = './Pages/Contact Manager/manager.html';
             }
         }
 
         xhr.send(jsonPayload)
-    } catch(error) {
-        document.getElementById("loginCredential").innerHTML = "";
-        document.getElementById("loginPassword").innerHTML = "";
+    } catch(err) {
+        document.getElementById("loginCredential").value = "";
+        document.getElementById("loginPassword").value = "";
+
 
         button.style.backgroundColor = '#ae2b36';
 
@@ -79,6 +95,7 @@ function doLogin() {
         }, 650); 
 
         console.log(err.message);
+        return;
     }
 }
 
@@ -138,6 +155,14 @@ function createUser() {
             else{
                 console.error("Error")
             }
+
+            button.style.backgroundColor = 'blue';
+
+            setTimeout(() => {
+                button.style.backgroundColor = "#238636"; 
+            }, 650); 
+
+            window.location.href = "/index.html";
         }
 
         xhr.send(jsonPayload);
@@ -245,6 +270,7 @@ function searchContact() {
 	}
 }
 
+// Function To Save Cookies
 function saveCookie() {
     let minutes = 20;
 	let date = new Date();
@@ -252,6 +278,7 @@ function saveCookie() {
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
+// Function To read Cookies
 function readCookie() {
     userId = -1;
 	let data = document.cookie;
@@ -279,4 +306,89 @@ function readCookie() {
 	{
 		window.location.href = "index.html";
 	}
+}
+
+// Function To Login As A Guest: index.html
+function doLoginGuest() {
+    userId = 0;
+    firstName = "";
+    lastName = "";
+    email = "";
+    password = "";
+    userName = "";
+
+    const button = document.getElementById("loginButton"); // Get Button To Change Its Color
+
+    let loginCredential = "Admin";
+    let loginPassword = "Admin";
+
+    if (loginCredential === "" || loginPassword === "") {
+		button.style.backgroundColor = '#ae2b36';
+
+        setTimeout(() => {
+            button.style.backgroundColor = "#238636"; 
+        }, 650); 
+
+		return;
+	}
+
+    let tmp = { 
+        Login: loginCredential, 
+        Password: loginPassword
+    };
+
+    let jsonPayload = JSON.stringify(tmp);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", loginEndPoint, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8")
+    
+    try{
+        xhr.onreadystatechange = function () {
+            if(this.readyState == 4 && this.status == 200) {
+                let jsonObject = JSON.parse(xhr.responseText);
+				userId = jsonObject.ID;
+
+                console.log(`User id is: ${userId}`);
+		
+				if(userId < 1) {	
+                    document.getElementById("loginCredential").value = "";
+                    document.getElementById("loginPassword").value = "";
+                    
+                    button.style.backgroundColor = '#ae2b36';
+
+                    setTimeout(() => {
+                        button.style.backgroundColor = "#238636"; 
+                    }, 650); 
+                    
+					return;
+				}
+		
+				firstName = jsonObject.FirstName;
+				lastName = jsonObject.LastName;
+
+                console.log(`FirstName is: ${firstName}`);
+                console.log(`LastName is: ${lastName}`);
+
+				saveCookie();
+
+                window.location.href = './Pages/Contact Manager/manager.html';
+            }
+        }
+
+        xhr.send(jsonPayload)
+    } catch(err) {
+        document.getElementById("loginCredential").value = "";
+        document.getElementById("loginPassword").value = "";
+
+
+        button.style.backgroundColor = '#ae2b36';
+
+        setTimeout(() => {
+            button.style.backgroundColor = "#238636"; 
+        }, 650); 
+
+        console.log(err.message);
+        return;
+    }
 }
