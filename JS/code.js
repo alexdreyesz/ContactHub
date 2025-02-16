@@ -37,7 +37,10 @@ function doLogin() {
                 let jsonObject = JSON.parse(xhr.responseText);
 				userId = jsonObject.id;
 		
-				if(userId < 1) {		
+				if(userId < 1) {	
+                    document.getElementById("loginCredential").innerHTML = "";
+                    document.getElementById("loginPassword").innerHTML = "";
+                    
                     button.style.backgroundColor = '#ae2b36';
 
                     setTimeout(() => {
@@ -58,6 +61,9 @@ function doLogin() {
 
         xhr.send(jsonPayload)
     } catch(error) {
+        document.getElementById("loginCredential").innerHTML = "";
+        document.getElementById("loginPassword").innerHTML = "";
+
         button.style.backgroundColor = '#ae2b36';
 
         setTimeout(() => {
@@ -189,7 +195,7 @@ function searchContact() {
 				document.getElementsByTagName("p")[0].innerHTML = contactList;
 			}
 		};
-        
+
 		xhr.send(jsonPayload);
 	} catch(err) {
 		document.getElementById("searchText").placeholder = "NO CONTACT FOUND";

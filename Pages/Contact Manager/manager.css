@@ -215,11 +215,9 @@ input:focus {
     width: 100%;
     height: 60%;
     position: relative;
-    top: 13px;  
+    top: -20px;  
     overflow-y:scroll;
     scrollbar-width: none;
-
-
 }
 
 .list-info {
@@ -306,3 +304,9 @@ input:focus {
     cursor: pointer;
 }
 
+#searchButton {
+    width: 15%;
+    position: relative;
+    top: -47px;
+    left: 298px;
+}
