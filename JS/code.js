@@ -152,26 +152,30 @@ function createUser() {
     }
 }
 
-function addContactSecond() {
+function addContact() {
     let contactName = document.getElementById("nameText").value;
     let contactPhone = document.getElementById("phoneNumber").value;
     let contactEmail = document.getElementById("emailText").value;
 
-    const button = document.getElementById("addContactButton");
+    const button = document.getElementById("addContactButton");  // Get Button To Change Its Color
 
-	let tmp = {name:contactName, phone:contactPhone, email:contactEmail, userId, userId};
+	let tmp = {
+        Name: contactName, 
+        Phone: contactPhone, 
+        Email: contactEmail, 
+    };
+
 	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/AddContact.' + extension;
 	
 	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
+	xhr.open("POST", AddContactEndPoint, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
 	try {
 		xhr.onreadystatechange = function() {
-			document.getElementById("nameText").innerHTML = "";
-            document.getElementById("phoneNumber").innerHTML = "";
-            document.getElementById("emailText").innerHTML = "";
+			document.getElementById("nameText").value = "";
+            document.getElementById("phoneNumber").value = "";
+            document.getElementById("emailText").value= "";
             
             if (this.readyState == 4 && this.status == 200) {
                 button.style.backgroundColor = 'blue';
@@ -189,6 +193,8 @@ function addContactSecond() {
         setTimeout(() => {
             button.style.backgroundColor = "#238636"; 
         }, 650); 
+
+        console.log(err.message);
 	}
 }
 
@@ -197,14 +203,17 @@ function searchContact() {
 	
 	let contactList = "";
 
-	let tmp = {search:srch,userId:userId};
-	let jsonPayload = JSON.stringify( tmp );
+	let tmp = {
+        search: srch,
+        userId: userId
+    };
 
-	let url = urlBase + '/SearchContact.' + extension;
+	let jsonPayload = JSON.stringify( tmp );
 	
 	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
+	xhr.open("POST", searchContactEndPoint, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    
 	try {
 		xhr.onreadystatechange = function() 
 		{

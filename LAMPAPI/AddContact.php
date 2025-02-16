@@ -1,18 +1,22 @@
 <?php
 	$inData = getRequestInfo();
 	
-	$color = $inData["color"];
-	$userId = $inData["userId"];
+	//Parameters To Post Into MariaDB
+	$name = $inData["Name"];
+	$phone = $inData["Phone"];
+	$email = $inData["Email"];
+  
+	//Start Connection To MariaDB Using Host, Special User, Users Password, Server Name
+	$conn = new mysqli("localhost", "kingz", "imlameasf", "COP4331");
 
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT into Colors (UserId,Name) VALUES(?,?)");
-		$stmt->bind_param("ss", $userId, $color);
+		$stmt = $conn->prepare("INSERT into Contacts (`Name`, Phone, Email) VALUES(?, ?, ?)");
+		$stmt->bind_param("sss", $name, $phone, $email);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();

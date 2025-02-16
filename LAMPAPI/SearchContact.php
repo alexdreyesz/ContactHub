@@ -5,7 +5,9 @@
 	$searchResults = "";
 	$searchCount = 0;
 
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+	//Start Connection To MariaDB Using Host, Special User, Users Password, Server Name
+	$conn = new mysqli("localhost", "kingz", "imlameasf", "COP4331");
+	
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
@@ -13,8 +15,8 @@
 	else
 	{
 		$stmt = $conn->prepare("select Name from Colors where Name like ? and UserID=?");
-		$colorName = "%" . $inData["search"] . "%";
-		$stmt->bind_param("ss", $colorName, $inData["userId"]);
+		$contactName = "%" . $inData["search"] . "%";
+		$stmt->bind_param("ss", $contactName, $inData["userId"]);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();

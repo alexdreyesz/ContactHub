@@ -11,7 +11,7 @@ function togglePassword() {
     }
 }
 
-function addContact() {
+function addContactExtra() {
     const showContact = document.querySelector(".contact-list"); // Fix the selector
 
     let newAddedPerson = document.createElement('div');
