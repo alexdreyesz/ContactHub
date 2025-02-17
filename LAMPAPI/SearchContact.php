@@ -1,6 +1,8 @@
 <?php
 
 	$inData = getRequestInfo();
+
+	error_log(json_encode($inData));
 	
 	$searchResults = "";
 	$searchCount = 0;
@@ -14,32 +16,32 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("select Name from Colors where Name like ? and UserID=?");
-		$contactName = "%" . $inData["search"] . "%";
-		$stmt->bind_param("ss", $contactName, $inData["userId"]);
+		$stmt = $conn->prepare("SELECT Name, Phone, Email FROM Contacts WHERE Name LIKE ? AND UserId = ?");
+		$contactName = "%" . $inData["Name"] . "%";
+		$stmt->bind_param("si", $contactName, $inData["UserId"]);
 		$stmt->execute();
-		
+
 		$result = $stmt->get_result();
-		
-		while($row = $result->fetch_assoc())
-		{
-			if( $searchCount > 0 )
-			{
+
+		$searchResults = "";
+		$searchCount = 0;
+
+		while ($row = $result->fetch_assoc()) {
+			if ($searchCount > 0) {
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '"' . $row["Name"] . '"';
+
+			// Add Name, Phone, and Email to the results
+			$searchResults .= '{"Name":"' . $row["Name"] . '", "Phone":"' . $row["Phone"] . '", "Email":"' . $row["Email"] . '"}';
 		}
-		
-		if( $searchCount == 0 )
-		{
-			returnWithError( "No Records Found" );
+
+		if ($searchCount == 0) {
+			returnWithError("No Records Found");
+		} else {
+			returnWithInfo($searchResults);
 		}
-		else
-		{
-			returnWithInfo( $searchResults );
-		}
-		
+
 		$stmt->close();
 		$conn->close();
 	}

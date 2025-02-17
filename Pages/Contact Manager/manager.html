@@ -6,6 +6,13 @@
     <link rel="Stylesheet" href="./manager.css">
     <link rel="icon" type="image/x-icon" href="../../Images/favIcon/logo.ico">
     <title>Manage Your Contact</title>
+
+    <script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() 
+	{
+		readCookie();
+	}, false);
+	</script>
 </head>
 <body>
 
@@ -47,18 +54,19 @@
 
                     <input type="text" class="input-text-box" id="searchText" placeholder="Search">
                     <button class="add-button" id="searchButton" onclick="searchContact()">Search</button>
+                    <button class="add-button" id="allButton" onclick="searchContact()">All</button>
                    
+                </div>
+
+                <div class="list-info">
+                    <p class="list-name">Name</p>
+                    <p class="list-phone">Phone</p>
+                    <p class="list-email">Email</p>
+                    <p class="list-action">Actions</p>
                 </div>
 
                 <!-- Contact List Component -->
                 <div class="contact-list"> 
-                    <div class="list-info">
-                        <p class="list-name">Name</p>
-                        <p class="list-phone">Phone</p>
-                        <p class="list-email">Email</p>
-                        <p class="list-action">Actions</p>
-                    </div>
-
                    
                 </div>
 

@@ -15,6 +15,7 @@ let email = "";
 let password = "";
 let userName = "";
 
+// Fucntion To Login To Contact Manager: index.html
 function doLogin() {
     userId = 0;
     firstName = "";
@@ -78,6 +79,8 @@ function doLogin() {
 
 				saveCookie();
 
+                console.log("Cookies:", document.cookie);
+
                 window.location.href = './Pages/Contact Manager/manager.html';
             }
         }
@@ -99,6 +102,7 @@ function doLogin() {
     }
 }
 
+// Function To Logout And Remove Previous Account: manager.html
 function doLogout() {
     userId = 0;
     firstName = "";
@@ -110,6 +114,7 @@ function doLogout() {
 	window.location.href = "/index.html";
 }
 
+// Function To Create User: createAccount.html
 function createUser() {
     let firstName = document.getElementById("nameText").value;
     let lastName = document.getElementById("lastText").value;
@@ -141,7 +146,6 @@ function createUser() {
 
     let jsonPayload = JSON.stringify(contactData);
 
-    // start connection to server
     let xhr = new XMLHttpRequest();
     xhr.open("POST", createEndPoint, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -177,6 +181,7 @@ function createUser() {
     }
 }
 
+// Fucntion To Add Contact: manager.html
 function addContact() {
     let contactName = document.getElementById("nameText").value;
     let contactPhone = document.getElementById("phoneNumber").value;
@@ -184,10 +189,21 @@ function addContact() {
 
     const button = document.getElementById("addContactButton");  // Get Button To Change Its Color
 
+    if (contactName === "" || contactPhone === "" || contactEmail === "") {
+		button.style.backgroundColor = '#ae2b36';
+
+        setTimeout(() => {
+            button.style.backgroundColor = "#238636"; 
+        }, 650); 
+
+		return;
+	}
+
 	let tmp = {
         Name: contactName, 
         Phone: contactPhone, 
-        Email: contactEmail, 
+        Email: contactEmail,
+        UserId: userId 
     };
 
 	let jsonPayload = JSON.stringify( tmp );
@@ -223,89 +239,178 @@ function addContact() {
 	}
 }
 
+// Function To Search Contacts: manager.html
 function searchContact() {
-    let srch = document.getElementById("searchText").value;
-	
-	let contactList = "";
+    let search = document.getElementById("searchText").value;
 
-	let tmp = {
-        search: srch,
-        userId: userId
-    };
-
-	let jsonPayload = JSON.stringify( tmp );
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", searchContactEndPoint, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    
-	try {
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				let jsonObject = JSON.parse(xhr.responseText);
-				
-				for(let i = 0; i < jsonObject.results.length; i++) {
-					contactList += jsonObject.results[i];
-
-					if(i < jsonObject.results.length - 1) {
-						contactList += "<br />\r\n";
-					}
-				}
-				
-				document.getElementsByTagName("p")[0].innerHTML = contactList;
-			}
-		};
-
-		xhr.send(jsonPayload);
-	} catch(err) {
-		document.getElementById("searchText").placeholder = "NO CONTACT FOUND";
+    if (search === "") {
+        document.getElementById("searchText").placeholder = "PLEASE INSERT CONTACT NAME";
 
         setTimeout(() => {
             document.getElementById("searchText").placeholder = "Search";
-        }, 650); 
+        }, 1500);
+
+        return;
+    }
+
+    let tmp = {
+        Name: search,
+        UserId: userId
+    };
+
+    console.log(search);
+    console.log(userId);
+
+    let jsonPayload = JSON.stringify(tmp);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", searchContactEndPoint, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    const showContact = document.querySelector(".contact-list");
+    showContact.innerHTML = "";
+
+    try {
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if (jsonObject.results && jsonObject.results.length > 0) {
+                    for (let i = 0; i < jsonObject.results.length; i++) {
+
+                        let contact = jsonObject.results[i];
+
+                        let newAddedPerson = document.createElement('div');
+                        let name = document.createElement('p');
+                        let phone = document.createElement('p');
+                        let email = document.createElement('p');
+                        let button = document.createElement('button');
+
+                        newAddedPerson.className = "added-person";
+                        button.innerHTML = "Delete";
+                        button.className = "delete-button";
+
+                        button.addEventListener("click", function() {
+                            showContact.removeChild(newAddedPerson);
+                        });
+
+                        name.innerHTML = contact.Name;
+                        phone.innerHTML = contact.Phone;
+                        email.innerHTML = contact.Email;
+
+                        newAddedPerson.appendChild(name);
+                        newAddedPerson.appendChild(phone);
+                        newAddedPerson.appendChild(email);
+                        newAddedPerson.appendChild(button);
+                    
+                        showContact.appendChild(newAddedPerson);
+
+                        console.log(contact.Name);
+                        console.log(contact.Phone);
+                        console.log(contact.Email);
+                    }
+                } else {
+                    let name = document.createElement('p');
+                    name.value = "No contacts found";
+                    newAddedPerson.appendChild(name);
+                    newAddedPerson.appendChild(button);
+                    showContact.appendChild(newAddedPerson);
+                }
+            }
+        };
+
+        xhr.send(jsonPayload);
+    } catch (err) {
+        document.getElementById("searchText").placeholder = "NO CONTACT FOUND";
+
+        setTimeout(() => {
+            document.getElementById("searchText").placeholder = "Search";
+        }, 1500);
 
         console.log(err.message);
-	}
+    }
 }
 
-// Function To Save Cookies
-function saveCookie() {
-    let minutes = 20;
-	let date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
-}
+// Function To Search Contacts: manager.html
+function searchAll() {
+    let search = "";
 
-// Function To read Cookies
-function readCookie() {
-    userId = -1;
-	let data = document.cookie;
-	let splits = data.split(",");
+    let tmp = {
+        Name: search,
+        UserId: userId
+    };
 
-	for(var i = 0; i < splits.length; i++) 
-	{
-		let thisOne = splits[i].trim();
-		let tokens = thisOne.split("=");
-		if( tokens[0] == "firstName" )
-		{
-			firstName = tokens[1];
-		}
-		else if( tokens[0] == "lastName" )
-		{
-			lastName = tokens[1];
-		}
-		else if( tokens[0] == "userId" )
-		{
-			userId = parseInt( tokens[1].trim() );
-		}
-	}
-	
-	if( userId < 0 )
-	{
-		window.location.href = "index.html";
-	}
+    console.log(search);
+    console.log(userId);
+
+    let jsonPayload = JSON.stringify(tmp);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", searchContactEndPoint, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    const showContact = document.querySelector(".contact-list");
+    showContact.innerHTML = "";
+
+    try {
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if (jsonObject.results && jsonObject.results.length > 0) {
+                    for (let i = 0; i < jsonObject.results.length; i++) {
+
+                        let contact = jsonObject.results[i];
+
+                        let newAddedPerson = document.createElement('div');
+                        let name = document.createElement('p');
+                        let phone = document.createElement('p');
+                        let email = document.createElement('p');
+                        let button = document.createElement('button');
+
+                        newAddedPerson.className = "added-person";
+                        button.innerHTML = "Delete";
+                        button.className = "delete-button";
+
+                        button.addEventListener("click", function() {
+                            showContact.removeChild(newAddedPerson);
+                        });
+
+                        name.innerHTML = contact.Name;
+                        phone.innerHTML = contact.Phone;
+                        email.innerHTML = contact.Email;
+
+                        newAddedPerson.appendChild(name);
+                        newAddedPerson.appendChild(phone);
+                        newAddedPerson.appendChild(email);
+                        newAddedPerson.appendChild(button);
+                    
+                        showContact.appendChild(newAddedPerson);
+
+                        console.log(contact.Name);
+                        console.log(contact.Phone);
+                        console.log(contact.Email);
+                    }
+                } else {
+                    let name = document.createElement('p');
+                    name.value = "No contacts found";
+                    newAddedPerson.appendChild(name);
+                    newAddedPerson.appendChild(button);
+                    showContact.appendChild(newAddedPerson);
+                }
+            }
+        };
+
+        xhr.send(jsonPayload);
+    } catch (err) {
+        document.getElementById("searchText").placeholder = "NO CONTACT FOUND";
+
+        setTimeout(() => {
+            document.getElementById("searchText").placeholder = "Search";
+        }, 650);
+
+        console.log(err.message);
+    }
 }
 
 // Function To Login As A Guest: index.html
@@ -391,4 +496,43 @@ function doLoginGuest() {
         console.log(err.message);
         return;
     }
+}
+
+// Function To Save Cookies
+function saveCookie() {
+    let minutes = 20;
+	let date = new Date();
+	date.setTime(date.getTime()+(minutes*60*1000));	
+	document.cookie = `firstName=${firstName}; expires=${date.toUTCString()}; path=/`;
+    document.cookie = `lastName=${lastName}; expires=${date.toUTCString()}; path=/`;
+    document.cookie = `userId=${userId}; expires=${date.toUTCString()}; path=/`;
+}
+
+// Function To read Cookies
+function readCookie() {
+    let cookies = document.cookie.split("; ");
+    firstName = "";
+    lastName = "";
+    userId = "";
+
+    for (let i = 0; i < cookies.length; i++) {
+        let pair = cookies[i].split("=");
+
+        if (pair.length === 2) {
+            let key = pair[0].trim();
+            let value = decodeURIComponent(pair[1].trim());
+
+            if (key === "firstName") {
+                firstName = value;
+            } else if (key === "lastName") {
+                lastName = value;
+            } else if (key === "userId") {
+                userId = value; 
+            }
+        }
+    }
+
+    console.log("First Name:", firstName);
+    console.log("Last Name:", lastName);
+    console.log("User ID:", userId);
 }

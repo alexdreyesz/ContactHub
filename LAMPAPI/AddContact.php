@@ -5,6 +5,7 @@
 	$name = $inData["Name"];
 	$phone = $inData["Phone"];
 	$email = $inData["Email"];
+	$userId = $inData["UserId"];
   
 	//Start Connection To MariaDB Using Host, Special User, Users Password, Server Name
 	$conn = new mysqli("localhost", "kingz", "imlameasf", "COP4331");
@@ -15,8 +16,8 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT into Contacts (`Name`, Phone, Email) VALUES(?, ?, ?)");
-		$stmt->bind_param("sss", $name, $phone, $email);
+		$stmt = $conn->prepare("INSERT into Contacts (`Name`, Phone, Email, UserID) VALUES(?, ?, ?, ?)");
+		$stmt->bind_param("ssss", $name, $phone, $email, $userId);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
