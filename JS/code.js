@@ -4,6 +4,7 @@ const extension = 'php';
 
 //API ENDPOINTS
 let AddContactEndPoint = `${urlBase}/AddContact.${extension}`;
+let deleteContactEndPoint = `${urlBase}/DeleteContact.${extension}`;
 let createEndPoint = `${urlBase}/Create.${extension}`;
 let loginEndPoint = `${urlBase}/Login.${extension}`;
 let searchContactEndPoint = `${urlBase}/SearchContact.${extension}`;
@@ -181,7 +182,7 @@ function createUser() {
     }
 }
 
-// Fucntion To Add Contact: manager.html
+// Function To Add Contact: manager.html
 function addContact() {
     let contactName = document.getElementById("nameText").value;
     let contactPhone = document.getElementById("phoneNumber").value;
@@ -239,6 +240,51 @@ function addContact() {
 	}
 }
 
+// Function To Delete Contact: manager.html
+function deleteContact(id) {
+    console.log("delete");
+
+    const parent = document.getElementById(id); 
+
+    let contactName = parent.querySelector('.contact-list-name').textContent.trim();
+    let contactPhone = parent.querySelector('.contact-list-phone').textContent.trim();
+    let contactEmail = parent.querySelector('.contact-list-email').textContent.trim();
+
+    console.log(contactName);
+    console.log(contactPhone);
+    console.log(contactEmail);
+
+	let tmp = {
+        Name: contactName, 
+        Phone: contactPhone, 
+        Email: contactEmail,
+    };
+
+    parent.remove();
+
+	let jsonPayload = JSON.stringify( tmp );
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", deleteContactEndPoint, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try {
+		xhr.onreadystatechange = function() {
+            
+            if (this.readyState == 4 && this.status == 200) {
+                
+                console.log("Contact Deleted Successfully");
+			} else {
+                console.log("Error: " + this.status + " - " + this.statusText);
+            }
+		};
+
+		xhr.send(jsonPayload);
+	} catch(err) {
+        console.log(err.message);
+	}
+}
+
 // Function To Search Contacts: manager.html
 function searchContact() {
     let search = document.getElementById("searchText").value;
@@ -286,12 +332,17 @@ function searchContact() {
                         let email = document.createElement('p');
                         let button = document.createElement('button');
 
+                        name.className = "contact-list-name";
+                        phone.className = "contact-list-phone";
+                        email.className = "contact-list-email";
+
                         newAddedPerson.className = "added-person";
+                        newAddedPerson.id = `id${i}`;
                         button.innerHTML = "Delete";
                         button.className = "delete-button";
 
                         button.addEventListener("click", function() {
-                            showContact.removeChild(newAddedPerson);
+                            deleteContact(newAddedPerson.id);
                         });
 
                         name.innerHTML = contact.Name;
@@ -368,12 +419,17 @@ function searchAll() {
                         let email = document.createElement('p');
                         let button = document.createElement('button');
 
+                        name.className = "contact-list-name";
+                        phone.className = "contact-list-phone";
+                        email.className = "contact-list-email";
+
                         newAddedPerson.className = "added-person";
+                        newAddedPerson.id = `id${i}`;
                         button.innerHTML = "Delete";
                         button.className = "delete-button";
 
                         button.addEventListener("click", function() {
-                            showContact.removeChild(newAddedPerson);
+                            deleteContact(newAddedPerson.id);
                         });
 
                         name.innerHTML = contact.Name;
