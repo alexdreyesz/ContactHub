@@ -5,6 +5,7 @@ const extension = 'php';
 //API ENDPOINTS
 let AddContactEndPoint = `${urlBase}/AddContact.${extension}`;
 let deleteContactEndPoint = `${urlBase}/DeleteContact.${extension}`;
+let UpdateContactEndPoint = `${urlBase}/UpdateContact.${extension}`;
 let createEndPoint = `${urlBase}/Create.${extension}`;
 let loginEndPoint = `${urlBase}/Login.${extension}`;
 let searchContactEndPoint = `${urlBase}/SearchContact.${extension}`;
@@ -285,6 +286,133 @@ function deleteContact(id) {
 	}
 }
 
+// Function To Create The Window Of The Update Section
+function updateWindow(id) {
+    const parent = document.getElementById(id); 
+
+    let contactName = parent.querySelector('.contact-list-name').textContent.trim();
+    let contactPhone = parent.querySelector('.contact-list-phone').textContent.trim();
+    let contactEmail = parent.querySelector('.contact-list-email').textContent.trim();
+
+    let rightContainer = document.querySelector(".right-container");
+
+    let window = document.createElement(`div`);
+
+    window.className = "update-container";
+
+    rightContainer.appendChild(window);
+
+    let close = document.createElement(`button`);
+    let name = document.createElement(`p`);
+    let phone = document.createElement(`input`);
+    let email = document.createElement(`input`);
+    let update = document.createElement(`button`);
+
+    close.className = "close-window";
+    name.className = "update-name";
+
+    phone.type = "text";
+    phone.className = "update-phone";
+    phone.id = "UpdatePhoneNew";
+
+    email.type = "text";
+    email.className = "update-email";
+    email.id = "updateEmailNew";
+
+    update.className = "update-contact";
+    update.id = "contactUpdateButton";
+
+    close.innerHTML = "X";
+    name.innerHTML = contactName;
+    phone.placeholder = `Update Phone: ${contactPhone}`;
+    email.placeholder = `Update Email: ${contactEmail}`;
+    update.innerHTML = "Update";
+
+    close.addEventListener("click", function() {
+        window.remove();
+
+        const showContact = document.querySelector(".contact-list");
+        showContact.innerHTML = "";
+    });
+
+    update.addEventListener("click", function() {
+        updateContact(contactName);
+    });
+
+    window.appendChild(close);
+    window.appendChild(name);
+    window.appendChild(phone);
+    window.appendChild(email);
+    window.appendChild(update);
+
+    console.log(`Phone V: ${phone.value}`);
+    console.log(`Email V: ${email.value}`);
+
+    console.log(`Phone N: ${phone}`);
+    console.log(`Email N: ${email}`);
+}
+
+// Function To Update Contact: manager.html
+function updateContact(contactName) {
+    let phone = document.getElementById("UpdatePhoneNew").value;
+    let email = document.getElementById("updateEmailNew").value;
+    let phoneHolder = document.getElementById("UpdatePhoneNew");
+    let emailHolder = document.getElementById("updateEmailNew");
+    let button = document.getElementById("contactUpdateButton");
+
+
+    if(phone === "" || email === "") {
+
+        button.style.backgroundColor = '#ae2b36';
+
+        setTimeout(() => {
+            button.style.backgroundColor = "#238636"; 
+        }, 650); 
+
+        return;
+    }
+
+	let tmp = {
+        Name: contactName, 
+        Phone: phone, 
+        Email: email
+    };
+
+	let jsonPayload = JSON.stringify(tmp);
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", UpdateContactEndPoint, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try {
+		xhr.onreadystatechange = function() {
+            
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("Contact Uploaded Successfully");
+
+                phoneHolder.placeholder = `Update Phone: ${phone}`;
+                emailHolder.placeholder = `Update Email: ${email}`;
+
+                phoneHolder.value = "";
+                emailHolder.value = "";
+
+                button.style.backgroundColor = 'blue';
+
+                setTimeout(() => {
+                    button.style.backgroundColor = "#238636"; 
+                }, 650); 
+			} else {
+                console.log("Failed To Connect");
+                console.log("Error: " + this.status + " - " + this.statusText);
+            }
+		};
+
+		xhr.send(jsonPayload);
+	} catch(err) {
+        console.log(err.message);
+	}
+}
+
 // Function To Search Contacts: manager.html
 function searchContact() {
     let search = document.getElementById("searchText").value;
@@ -331,6 +459,7 @@ function searchContact() {
                         let phone = document.createElement('p');
                         let email = document.createElement('p');
                         let button = document.createElement('button');
+                        let update = document.createElement('button');
 
                         name.className = "contact-list-name";
                         phone.className = "contact-list-phone";
@@ -338,6 +467,14 @@ function searchContact() {
 
                         newAddedPerson.className = "added-person";
                         newAddedPerson.id = `id${i}`;
+
+                        update.innerHTML = "Update"
+                        update.className = "update-button";
+
+                        update.addEventListener("click", function() {
+                            updateWindow(newAddedPerson.id);
+                        });
+
                         button.innerHTML = "Delete";
                         button.className = "delete-button";
 
@@ -352,6 +489,7 @@ function searchContact() {
                         newAddedPerson.appendChild(name);
                         newAddedPerson.appendChild(phone);
                         newAddedPerson.appendChild(email);
+                        newAddedPerson.appendChild(update)
                         newAddedPerson.appendChild(button);
                     
                         showContact.appendChild(newAddedPerson);
@@ -418,6 +556,7 @@ function searchAll() {
                         let phone = document.createElement('p');
                         let email = document.createElement('p');
                         let button = document.createElement('button');
+                        let update = document.createElement('button');
 
                         name.className = "contact-list-name";
                         phone.className = "contact-list-phone";
@@ -425,6 +564,14 @@ function searchAll() {
 
                         newAddedPerson.className = "added-person";
                         newAddedPerson.id = `id${i}`;
+
+                        update.innerHTML = "Update"
+                        update.className = "update-button";
+
+                        update.addEventListener("click", function() {
+                            updateWindow(newAddedPerson.id);
+                        });
+
                         button.innerHTML = "Delete";
                         button.className = "delete-button";
 
@@ -439,6 +586,7 @@ function searchAll() {
                         newAddedPerson.appendChild(name);
                         newAddedPerson.appendChild(phone);
                         newAddedPerson.appendChild(email);
+                        newAddedPerson.appendChild(update)
                         newAddedPerson.appendChild(button);
                     
                         showContact.appendChild(newAddedPerson);

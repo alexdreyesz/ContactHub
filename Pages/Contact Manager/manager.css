@@ -245,22 +245,22 @@ input:focus {
 
 .list-name {
     position: relative;
-    left: -20px;
+    left: -40px;
 }
 
 .list-phone {
     position: relative;
-    left: -40px;
+    left: -80px;
 }
 
 .list-email {
     position: relative;
-    left: -40px;
+    left: -80px;
 }
 
 .list-action {
     position: relative;
-    left: -40px;
+    left: -80px;
 }
 
 .added-person {
@@ -305,6 +305,29 @@ input:focus {
     cursor: pointer;
 }
 
+.update-button {
+    position: relative;
+    width: 15%;
+    margin-top: 0px;
+    margin-left: 0px;
+    padding: 9px;
+    border: none;
+    border-radius: 4px;
+    background-color: #238636;
+    transition-duration: 0.4s;
+
+    color: #E5EBF2;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.update-button:hover {
+    background-color: #1b6b2b;
+    box-shadow: #0D1116;
+    cursor: pointer;
+}
+
 #searchButton {
     width: 15%;
     position: relative;
@@ -322,4 +345,87 @@ input:focus {
 
 #allButton:hover {
     background-color: #ae2b36;
+}
+
+/*UPDATE WINDOW*/
+.update-container { 
+    z-index: 1;
+    position: absolute;
+    top: 25.2%;
+    left: 40.3%;
+    width: 57%;
+    height: 60%;
+
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background-color:#161C23;
+    border: 1px solid #323f4d;
+    border-radius: 4px;
+}
+
+.close-window {
+    position: relative;
+    background-color: transparent;
+    transform: translate(330px, -15px);
+    border: 0px;
+    font-size: 24px;
+    color: #DC3544;
+}
+
+.close-window:hover {
+    cursor: pointer;
+    color: #ae2b36;
+}
+
+.update-name {
+    position: relative;
+    transform: translate(0px, -50px);
+    font-size: 36px;
+}
+
+.update-phone {
+    position: relative;
+    transform: translate(0px, -65px);
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #323f4d;
+    border-radius: 5px;
+}
+
+.update-email {
+    position: relative;
+    transform: translate(0px, -32px);
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #323f4d;
+    border-radius: 5px;
+}
+
+.update-contact {
+    position: relative;
+    transform: translate(0px, 0px);
+    width: 35%;
+
+    margin-top: 0px;
+    margin-left: 0px;
+    padding: 9px;
+    border: none;
+    border-radius: 4px;
+    background-color: #238636;
+    transition-duration: 0.4s;
+
+    color: #E5EBF2;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.update-contact:hover {
+    background-color: #1b6b2b;
+    box-shadow: #0D1116;
+    cursor: pointer;
 }
