@@ -11,12 +11,13 @@
 	document.addEventListener('DOMContentLoaded', function() 
 	{
 		readCookie();
+        searchAll();
 	}, false);
 	</script>
 </head>
 <body>
 
-    <p class="heading">Contact Manager</p>
+    <p class="heading">CONTACT MANAGER</p>
     
     <!-- Left Box Container -->
     <div class="left-container">
@@ -35,8 +36,12 @@
                         <input type="text" class="input-text-box" id="phoneNumber" placeholder="Phone">
                 
                         <input type="text" class="input-text-box" id="emailText" placeholder="Email">
+
+                        <div class="error-message"></div>
     
-                        <button class="add-button" id="addContactButton" onclick="addContact()">Add</button>   
+                        <button class="add-button" id="addContactButton" onclick="addContact()">Add</button> 
+                        
+                        <button class="logout-button" onclick="doLogout()">Log Out</button>
                     </div>
                 </div>
             </div>
@@ -52,6 +57,7 @@
             <p class="update-name">Alex Reyes<p>
             <input class="update-phone"  placeholder="Change Phone"></input>
             <input class="update-email"  placeholder="Change Email"></input>
+            <div class="error-message-update"></div>
             <button class="update-contact">Update</button> 
         </div>
         -->
@@ -65,7 +71,7 @@
                     <input type="text" class="input-text-box" id="searchText" placeholder="Search">
                     <button class="add-button" id="searchButton" onclick="searchContact()">Search</button>
                     <button class="add-button" id="allButton" onclick="searchAll()">All</button>
-                   
+
                 </div>
 
                 <div class="list-info">
@@ -77,21 +83,43 @@
 
                 <!-- Contact List Component -->
                 <div class="contact-list"> 
-                    <!-- Added Person Examples
-                    <div class="added-person">
-                        <p class="contact-list-name">John Doe</p>
-                        <p class="contact-list-phone">123-456-7890</p>
-                        <p class="contact-list-email">john@doe.example</p>
-                        <button class="update-button" onclick="updateWindow()">Update</button>
-                        <button class="delete-button">Delete</button> 
+                  <!--
+                    <div class="added-person"> 
+                        <div class="name-list-box">
+                            <p class="contact-list-name">John Doe</p>
+                        </div>
+
+                        <div class="phone-list-box">
+                            <p class="contact-list-phone">123-456-7890</p>
+                        </div>
+
+                        <div class="email-list-box">
+                            <p class="contact-list-email">john@doe.example</p>
+                        </div>
+
+                        <div class="actions-list-box">
+                            <button class="update-button" onclick="updateWindow()"><img src="../../Images/updateIcon.png"></button>
+                            <button class="delete-button"><img src="../../Images/deleteIcon.png"></button> 
+                        </div>
                     </div>
 
-                    <div class="added-person">
-                        <p class="contact-list-name">Alex Reyes</p>
-                        <p class="contact-list-phone">098-765-4321</p>
-                        <p class="contact-list-email">alexdreyesz@outlook.com</p>
-                        <button class="update-button" onclick="updateWindow()">Update</button>
-                        <button class="delete-button">Delete</button> 
+                    <div class="added-person"> 
+                        <div class="name-list-box">
+                            <p class="contact-list-name">Alex Reyes</p>
+                        </div>
+
+                        <div class="phone-list-box">
+                            <p class="contact-list-phone">321-654-0987</p>
+                        </div>
+
+                        <div class="email-list-box">
+                            <p class="contact-list-email">alex@reyes.example</p>
+                        </div>
+
+                        <div class="actions-list-box">
+                            <button class="update-button" onclick="updateWindow()"><img src="../../Images/updateIcon.png"></button>
+                            <button class="delete-button"><img src="../../Images/deleteIcon.png"></button> 
+                        </div>
                     </div>
                     -->
                 </div>
@@ -99,8 +127,6 @@
             </div>
         </div>
     </div>
-
-    <button class="logout-button" onclick="doLogout()">Log Out</button>
     
     <!-- Script To JS -->
     <script src="../../JS/funtion.js"></script>

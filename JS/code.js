@@ -26,6 +26,8 @@ function doLogin() {
     password = "";
     userName = "";
 
+    let errorMessage = document.getElementsByClassName("error-message")[0];
+
     const button = document.getElementById("loginButton"); // Get Button To Change Its Color
 
     let loginCredential = document.getElementById("loginCredential").value;
@@ -36,7 +38,9 @@ function doLogin() {
 
         setTimeout(() => {
             button.style.backgroundColor = "#238636"; 
-        }, 650); 
+        }, 650);
+
+        errorMessage.innerHTML = "Empty Field";
 
 		return;
 	}
@@ -69,6 +73,8 @@ function doLogin() {
                     setTimeout(() => {
                         button.style.backgroundColor = "#238636"; 
                     }, 650); 
+
+                    errorMessage.innerHTML = "Wrong Credentials";
                     
 					return;
 				}
@@ -100,6 +106,8 @@ function doLogin() {
         }, 650); 
 
         console.log(err.message);
+
+        errorMessage.innerHTML = "Wrong Credentials";
         return;
     }
 }
@@ -124,6 +132,8 @@ function createUser() {
     let password = document.getElementById("loginPassword").value;
     let userName = document.getElementById("usernameText").value;
 
+    let errorMessage = document.getElementsByClassName("error-message")[0];
+
 	const button = document.getElementById("createUserButton");
 
 	if (firstName === "" || lastName === "" || userName === "" || password === "" || email === "") {
@@ -132,6 +142,8 @@ function createUser() {
         setTimeout(() => {
             button.style.backgroundColor = "#238636"; 
         }, 650); 
+
+        errorMessage.innerHTML = "Empty Field";
 
 		return;
 	}
@@ -179,6 +191,8 @@ function createUser() {
             button.style.backgroundColor = "#238636"; 
         }, 650); 
 
+        errorMessage.innerHTML = "Something Went Wrong";
+
         console.log(err.message);
     }
 }
@@ -189,6 +203,8 @@ function addContact() {
     let contactPhone = document.getElementById("phoneNumber").value;
     let contactEmail = document.getElementById("emailText").value;
 
+    let errorMessage = document.getElementsByClassName("error-message")[0];
+
     const button = document.getElementById("addContactButton");  // Get Button To Change Its Color
 
     if (contactName === "" || contactPhone === "" || contactEmail === "") {
@@ -198,8 +214,16 @@ function addContact() {
             button.style.backgroundColor = "#238636"; 
         }, 650); 
 
+        errorMessage.innerHTML = "Empty Field"
+
 		return;
 	}
+
+    // Ensures Only Digits And Correct Format Are Inputed For Phone 
+    if (!/^\d{3}-\d{3}-\d{4}$/.test(contactPhone)) {
+        errorMessage.innerHTML = "Phone Number Format 123-456-7890";
+        return;
+    }
 
 	let tmp = {
         Name: contactName, 
@@ -226,6 +250,16 @@ function addContact() {
                 setTimeout(() => {
                     button.style.backgroundColor = "#238636"; 
                 }, 650); 
+
+                searchAll();
+
+                let contactList = document.getElementsByClassName("contact-list");
+
+                setTimeout(() => {
+                    contactList.scrollTop = contactList.scrollHeight;
+                }, 1000);
+
+                errorMessage.innerHTML = "";
 			}
 		};
 
@@ -236,6 +270,8 @@ function addContact() {
         setTimeout(() => {
             button.style.backgroundColor = "#238636"; 
         }, 650); 
+
+        errorMessage.innerHTML = "Something Went Wrong"
 
         console.log(err.message);
 	}
@@ -306,6 +342,7 @@ function updateWindow(id) {
     let name = document.createElement(`p`);
     let phone = document.createElement(`input`);
     let email = document.createElement(`input`);
+    let errorMessage = document.createElement(`div`);
     let update = document.createElement(`button`);
 
     close.className = "close-window";
@@ -319,6 +356,8 @@ function updateWindow(id) {
     email.className = "update-email";
     email.id = "updateEmailNew";
 
+    errorMessage.className= "error-message-update";
+
     update.className = "update-contact";
     update.id = "contactUpdateButton";
 
@@ -330,9 +369,7 @@ function updateWindow(id) {
 
     close.addEventListener("click", function() {
         window.remove();
-
-        const showContact = document.querySelector(".contact-list");
-        showContact.innerHTML = "";
+        searchAll();
     });
 
     update.addEventListener("click", function() {
@@ -343,6 +380,7 @@ function updateWindow(id) {
     window.appendChild(name);
     window.appendChild(phone);
     window.appendChild(email);
+    window.appendChild(errorMessage);
     window.appendChild(update);
 
     console.log(`Phone V: ${phone.value}`);
@@ -360,6 +398,7 @@ function updateContact(contactName) {
     let emailHolder = document.getElementById("updateEmailNew");
     let button = document.getElementById("contactUpdateButton");
 
+    let errorMessage = document.getElementsByClassName("error-message-update")[0];
 
     if(phone === "" || email === "") {
 
@@ -369,6 +408,14 @@ function updateContact(contactName) {
             button.style.backgroundColor = "#238636"; 
         }, 650); 
 
+        errorMessage.innerHTML = "Empty Field";
+
+        return;
+    }
+
+    // Ensures Only Digits And Correct Format Are Inputed For Phone 
+    if (!/^\d{3}-\d{3}-\d{4}$/.test(phone)) {
+        errorMessage.innerHTML = "Phone Number Format 123-456-7890";
         return;
     }
 
@@ -401,15 +448,19 @@ function updateContact(contactName) {
                 setTimeout(() => {
                     button.style.backgroundColor = "#238636"; 
                 }, 650); 
+
+                errorMessage.innerHTML = "";
 			} else {
                 console.log("Failed To Connect");
                 console.log("Error: " + this.status + " - " + this.statusText);
+                errorMessage.innerHTML = "Something Went Wrong";
             }
 		};
 
 		xhr.send(jsonPayload);
 	} catch(err) {
         console.log(err.message);
+        errorMessage.innerHTML = "Something Went Wrong";
 	}
 }
 
@@ -461,6 +512,14 @@ function searchContact() {
                         let button = document.createElement('button');
                         let update = document.createElement('button');
 
+                        let updateIcon = document.createElement('img');
+                        let deleteIcon = document.createElement('img');
+
+                        updateIcon.src = "../../Images/updateIcon.png"
+                        updateIcon.className = ""
+
+                        deleteIcon.src = "../../Images/deleteIcon.png"
+
                         name.className = "contact-list-name";
                         phone.className = "contact-list-phone";
                         email.className = "contact-list-email";
@@ -468,14 +527,14 @@ function searchContact() {
                         newAddedPerson.className = "added-person";
                         newAddedPerson.id = `id${i}`;
 
-                        update.innerHTML = "Update"
+                        update.appendChild(updateIcon)
                         update.className = "update-button";
 
                         update.addEventListener("click", function() {
                             updateWindow(newAddedPerson.id);
                         });
 
-                        button.innerHTML = "Delete";
+                        button.appendChild(deleteIcon);
                         button.className = "delete-button";
 
                         button.addEventListener("click", function() {
@@ -486,11 +545,27 @@ function searchContact() {
                         phone.innerHTML = contact.Phone;
                         email.innerHTML = contact.Email;
 
-                        newAddedPerson.appendChild(name);
-                        newAddedPerson.appendChild(phone);
-                        newAddedPerson.appendChild(email);
-                        newAddedPerson.appendChild(update)
-                        newAddedPerson.appendChild(button);
+                        let nameBox = document.createElement('div');
+                        let phoneBox = document.createElement('div');
+                        let emailBox = document.createElement('div');
+                        let actionsBox = document.createElement('div');
+
+                        nameBox.className = "name-list-box"
+                        phoneBox.className = "phone-list-box"
+                        emailBox.className = "email-list-box"
+                        actionsBox.className = "actions-list-box"
+
+
+                        nameBox.appendChild(name);
+                        phoneBox.appendChild(phone);
+                        emailBox.appendChild(email);
+                        actionsBox.appendChild(update)
+                        actionsBox.appendChild(button);
+
+                        newAddedPerson.appendChild(nameBox);
+                        newAddedPerson.appendChild(phoneBox);
+                        newAddedPerson.appendChild(emailBox);
+                        newAddedPerson.appendChild(actionsBox);
                     
                         showContact.appendChild(newAddedPerson);
 
@@ -549,6 +624,7 @@ function searchAll() {
                 if (jsonObject.results && jsonObject.results.length > 0) {
                     for (let i = 0; i < jsonObject.results.length; i++) {
 
+                        
                         let contact = jsonObject.results[i];
 
                         let newAddedPerson = document.createElement('div');
@@ -558,6 +634,14 @@ function searchAll() {
                         let button = document.createElement('button');
                         let update = document.createElement('button');
 
+                        let updateIcon = document.createElement('img');
+                        let deleteIcon = document.createElement('img');
+
+                        updateIcon.src = "../../Images/updateIcon.png"
+                        updateIcon.className = ""
+
+                        deleteIcon.src = "../../Images/deleteIcon.png"
+
                         name.className = "contact-list-name";
                         phone.className = "contact-list-phone";
                         email.className = "contact-list-email";
@@ -565,14 +649,14 @@ function searchAll() {
                         newAddedPerson.className = "added-person";
                         newAddedPerson.id = `id${i}`;
 
-                        update.innerHTML = "Update"
+                        update.appendChild(updateIcon)
                         update.className = "update-button";
 
                         update.addEventListener("click", function() {
                             updateWindow(newAddedPerson.id);
                         });
 
-                        button.innerHTML = "Delete";
+                        button.appendChild(deleteIcon);
                         button.className = "delete-button";
 
                         button.addEventListener("click", function() {
@@ -583,11 +667,27 @@ function searchAll() {
                         phone.innerHTML = contact.Phone;
                         email.innerHTML = contact.Email;
 
-                        newAddedPerson.appendChild(name);
-                        newAddedPerson.appendChild(phone);
-                        newAddedPerson.appendChild(email);
-                        newAddedPerson.appendChild(update)
-                        newAddedPerson.appendChild(button);
+                        let nameBox = document.createElement('div');
+                        let phoneBox = document.createElement('div');
+                        let emailBox = document.createElement('div');
+                        let actionsBox = document.createElement('div');
+
+                        nameBox.className = "name-list-box"
+                        phoneBox.className = "phone-list-box"
+                        emailBox.className = "email-list-box"
+                        actionsBox.className = "actions-list-box"
+
+
+                        nameBox.appendChild(name);
+                        phoneBox.appendChild(phone);
+                        emailBox.appendChild(email);
+                        actionsBox.appendChild(update)
+                        actionsBox.appendChild(button);
+
+                        newAddedPerson.appendChild(nameBox);
+                        newAddedPerson.appendChild(phoneBox);
+                        newAddedPerson.appendChild(emailBox);
+                        newAddedPerson.appendChild(actionsBox);
                     
                         showContact.appendChild(newAddedPerson);
 

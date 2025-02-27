@@ -191,3 +191,11 @@ input:focus {
     text-decoration: underline;
     color: #0969E1;
 }
+
+.error-message { 
+    position: relative;
+    top: 5px;
+    color: #ff0000;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-size: 12px;
+}

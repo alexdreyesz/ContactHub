@@ -188,3 +188,13 @@ input:focus {
     position: relative;
     top: -10px;
 }
+
+.error-message { 
+    position: relative;
+    top: -20px;
+    left: -10px;
+    color: #ff0000;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+}
