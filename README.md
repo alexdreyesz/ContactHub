@@ -19,7 +19,6 @@
 
 ## 📷 Screenshots  
 
-*(Add some screenshots here to showcase the UI and features!)*  
 
 ## 🛠 Setup & Installation  
 
@@ -27,3 +26,7 @@
    ```bash
    git clone https://github.com/your-username/ContactHub.git
    cd ContactHub
+
+
+Let me know if you need any modifications! 🚀
+
