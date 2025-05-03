@@ -5,19 +5,19 @@
 
 <br>
 
-## 🧾 Dashboard  
+## 🏠  Home 
 <div align="center">
-  <img src="public/images/contacthub-dashboard.png" height="300" alt="Dashboard Screenshot"/>
+  <img src="public/Contacthub/sign-in.png" height="300" alt="Dashboard Screenshot"/>
 </div>
 
-## ➕ Add Contact  
+## 🔐 Create Account   
 <div align="center">
-  <img src="public/images/contacthub-add.png" height="300" alt="Add Contact Screenshot"/>
+  <img src="public/Contacthub/create-account.png" height="300" alt="Add Contact Screenshot"/>
 </div>
 
-## 📋 View Contacts  
+## 📋 Manage Contacts  
 <div align="center">
-  <img src="public/images/contacthub-contacts.png" height="300" alt="View Contacts Screenshot"/>
+  <img src="public/Contacthub/manager.png" height="300" alt="View Contacts Screenshot"/>
 </div>
 
 <br>
