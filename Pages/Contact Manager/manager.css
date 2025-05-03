@@ -302,6 +302,7 @@ input:focus {
     align-items: center;
     gap: 30px;
     border-bottom: 1px solid #323f4d;
+    z-index: 10;
 }
 
 .added-person p {
