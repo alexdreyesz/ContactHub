@@ -1,5 +1,5 @@
 # 📇 Welcome to ContactHub - A Contact Management System  
-**PHP | MySQL | HTML | CSS | JavaScript | Apache | Linux (LAMP Stack)**
+**Linux | Apache | Mysql | PHP | HTML | CSS | Javascript | MariaDB | AWS Lightsail (LAMP Stack)**
 
 **ContactHub** is a full-featured contact management system built with the LAMP stack. It provides an intuitive interface to store, organize, and manage personal or professional contacts while ensuring secure access and consistent data backups. This project was done with the intention of demonstrating my understanding of the basics.
 
@@ -32,8 +32,9 @@
 <br>
 
 ## 🛠 **Technologies Used:**
+- **Linux** – Deployment environment running the LAMP stack 
+- **Apache** – Web server for handling HTTP requests  
+- **MySQL / MariaDB** – Relational database for contact storage
 - **PHP** – Server-side logic and data handling  
-- **MySQL** – Relational database for contact storage  
-- **HTML/CSS/JavaScript** – Front-end structure and interactivity  
-- **Apache** – Web server for handling requests  
-- **Linux** – Hosting and deployment environment
+- **HTML / CSS / JavaScript** – Front-end structure and interactivity  
+- **AWS Lightsail** – Cloud platform used for hosting the application
